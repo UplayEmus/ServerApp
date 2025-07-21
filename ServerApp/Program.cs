@@ -1,5 +1,5 @@
 using ServerShared;
-using ServerShared.Controllers;
+using ServerShared.Controller;
 using Shared;
 using Serilog;
 
