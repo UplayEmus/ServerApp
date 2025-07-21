@@ -1,6 +1,7 @@
 using ServerShared;
 using ServerShared.Controllers;
 using Shared;
+using Serilog;
 
 namespace ServerApp;
 
