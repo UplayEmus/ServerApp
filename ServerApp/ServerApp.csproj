@@ -13,7 +13,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="UplayEmus.ServerShared" Version="0.0.1" />
+		<PackageReference Include="UplayEmus.ServerShared" Version="0.0.2" />
         <PackageReference Include="UplayEmus.Shared" Version="1.0.0" />
 	</ItemGroup>
 </Project>

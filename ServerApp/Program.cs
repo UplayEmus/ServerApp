@@ -1,7 +1,6 @@
-using ServerShared;
-using ServerShared.Controller;
+using ServerShared.Controllers;
 using Shared;
-using Serilog;
+using Serilog.Events;
 
 namespace ServerApp;
 
@@ -23,6 +22,7 @@ internal class Program
             MainLogger.LevelSwitch.MinimumLevel = LogEventLevel.Debug;
         }
 
+        ServerController.Start();
         PluginController.LoadPlugins();
         string endCheck = "not";
         while (!endCheck.Equals("exit", StringComparison.CurrentCultureIgnoreCase))
@@ -34,6 +34,7 @@ internal class Program
             }
         }
         PluginController.UnloadPlugins();
+        ServerController.Stop();
         Console.ReadLine();
     }
 
