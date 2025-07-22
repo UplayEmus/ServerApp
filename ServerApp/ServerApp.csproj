@@ -5,8 +5,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Authors>UplayEmus;Detanup01</Authors>
-		<Company>UplayEmus</Company>
+		<Authors>ServerEmus;Detanup01</Authors>
+		<Company>ServerEmus</Company>
 		<Copyright>$(Company)</Copyright>
 		<Version>0.0.1</Version>
 		<FileVersion>$(Version)</FileVersion>
@@ -14,7 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="UplayEmus.ServerShared" Version="0.0.2" />
-        <PackageReference Include="UplayEmus.Shared" Version="1.0.0" />
+		<PackageReference Include="ServerEmus.ServerShared" Version="0.0.1" />
+        <PackageReference Include="ServerEmus.Shared" Version="1.0.0" />
 	</ItemGroup>
 </Project>

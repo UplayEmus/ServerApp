@@ -21,8 +21,10 @@ internal class Program
         {
             MainLogger.LevelSwitch.MinimumLevel = LogEventLevel.Debug;
         }
+        // TODO: More stuff to check and get the cert file.
+        var crt = ModdableWebServer.Helper.CertHelper.GetContextNoValidate(System.Security.Authentication.SslProtocols.Tls12, "cert.pfx", string.Empty);
 
-        ServerController.Start();
+        ServerController.Start(crt);
         PluginController.LoadPlugins();
         string endCheck = "not";
         while (!endCheck.Equals("exit", StringComparison.CurrentCultureIgnoreCase))
