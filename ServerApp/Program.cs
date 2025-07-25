@@ -51,7 +51,11 @@ internal class Program
         }
         if (args.Contains("debug"))
         {
-            MainLogger.LevelSwitch.MinimumLevel = LogEventLevel.Verbose;
+            // Verbose expose MWS to us. we using DEBUG.
+
+            MainLogger.LevelSwitch.MinimumLevel = LogEventLevel.Debug;
+            MainLogger.ConsoleLevelSwitch.MinimumLevel = LogEventLevel.Debug;
+            MainLogger.FileLevelSwitch.MinimumLevel = LogEventLevel.Debug;
         }
         
 
@@ -109,7 +113,7 @@ internal class Program
             endCheck = Console.ReadLine()!;
             if (endCheck.StartsWith('!'))
             {
-                CommandController.Run(endCheck);
+                CommandController.Run(endCheck[1..]);
             }
         }
         PluginController.UnloadPlugins();
