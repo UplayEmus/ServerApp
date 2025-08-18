@@ -14,30 +14,31 @@ internal class Program
 {
     static void Main(string[] args)
     {
+        Settings ServerAppSettings = JsonController.Read<Settings>("ServerAppSettings.json");
         if (args.Contains("example"))
         {
-            Settings.Instance.Servers.Add(new()
+            ServerAppSettings.Servers.Add(new()
             {
                 Name = "MainWeb",
                 Port = 80,
             });
-            Settings.Instance.Servers.Add(new()
+            ServerAppSettings.Servers.Add(new()
             {
                 Name = "MainWebSSL",
                 Port = 443,
                 UseCerts = true
             });
-            Settings.Instance.CertDetails.Add(new()
+            ServerAppSettings.CertDetails.Add(new()
             {
                 Name = "UbisoftCert",
                 Password = "ServerEmus"
             });
-            Settings.Instance.CertDetails.Add(new()
+            ServerAppSettings.CertDetails.Add(new()
             {
                 Name = "ServerEmusPFX",
                 Password = "ServerEmus"
             });
-            Settings.Save();
+            JsonController.Save(ServerAppSettings, "ServerAppSettings.json");
             return;
         }
         MainLogger.CreateNew();
@@ -65,7 +66,7 @@ internal class Program
 
         bool supportSSL = Directory.Exists("Cert");
 
-        if (!supportSSL && Settings.Instance.Servers.Any(x => x.UseCerts = true))
+        if (!supportSSL && ServerAppSettings.Servers.Any(x => x.UseCerts = true))
         {
             Log.Error("You have not created a 'Cert' folder to include your certificates, but your settings have to user cert. Please make a 'Cert' directory and install any certificate!");
             return;
@@ -76,7 +77,7 @@ internal class Program
         {
             if (cert.EndsWith("key"))
                 continue;
-            var certDetail = Settings.Instance.CertDetails.FirstOrDefault(x => cert.Contains(x.Name));
+            var certDetail = ServerAppSettings.CertDetails.FirstOrDefault(x => cert.Contains(x.Name));
             string password = string.Empty;
             if (certDetail != null)
                 password = certDetail.Password;
@@ -93,7 +94,7 @@ internal class Program
 
         List<ServerModel> servers = [];
 
-        foreach (var server in Settings.Instance.Servers)
+        foreach (var server in ServerAppSettings.Servers)
         {
             servers.Add(new()
             { 
@@ -120,7 +121,7 @@ internal class Program
                 CommandController.Run(endCheck[1..]);
             }
         }
-        PluginController.DisablePlugins();
+        PluginController.StopPlugins();
         ServerController.Stop();
         MainLogger.Close();
     }
