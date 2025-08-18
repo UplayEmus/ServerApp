@@ -52,12 +52,16 @@ internal class Program
         if (args.Contains("debug"))
         {
             // Verbose expose MWS to us. we using DEBUG.
-
             MainLogger.LevelSwitch.MinimumLevel = LogEventLevel.Debug;
             MainLogger.ConsoleLevelSwitch.MinimumLevel = LogEventLevel.Debug;
             MainLogger.FileLevelSwitch.MinimumLevel = LogEventLevel.Debug;
         }
-        
+        if (args.Contains("verbose"))
+        {
+            MainLogger.LevelSwitch.MinimumLevel = LogEventLevel.Verbose;
+            MainLogger.ConsoleLevelSwitch.MinimumLevel = LogEventLevel.Verbose;
+            MainLogger.FileLevelSwitch.MinimumLevel = LogEventLevel.Verbose;
+        }
 
         bool supportSSL = Directory.Exists("Cert");
 
@@ -116,7 +120,7 @@ internal class Program
                 CommandController.Run(endCheck[1..]);
             }
         }
-        PluginController.UnloadPlugins();
+        PluginController.DisablePlugins();
         ServerController.Stop();
         MainLogger.Close();
     }
