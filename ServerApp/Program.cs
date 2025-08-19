@@ -45,8 +45,7 @@ internal class Program
         if (args.Contains("clean"))
         {
             // Deleting all files and the database too.
-            var log_files = Directory.GetFiles(Environment.CurrentDirectory, "*.log", SearchOption.AllDirectories);
-            foreach (var logfile in log_files)
+            foreach (var logfile in Directory.GetFiles(Environment.CurrentDirectory, "*.log", SearchOption.AllDirectories))
                 File.Delete(logfile);
             Directory.Delete("Database", true);
         }
@@ -64,9 +63,7 @@ internal class Program
             MainLogger.FileLevelSwitch.MinimumLevel = LogEventLevel.Verbose;
         }
 
-        bool supportSSL = Directory.Exists("Cert");
-
-        if (!supportSSL && ServerAppSettings.Servers.Any(x => x.UseCerts = true))
+        if (!Directory.Exists("Cert") && ServerAppSettings.Servers.Any(x => x.UseCerts = true))
         {
             Log.Error("You have not created a 'Cert' folder to include your certificates, but your settings have to user cert. Please make a 'Cert' directory and install any certificate!");
             return;
@@ -112,7 +109,7 @@ internal class Program
             "quit",
             "exit",
         ];
-        string endCheck = "not";
+        string endCheck = string.Empty;
         while (!quitList.Contains(endCheck))
         {
             endCheck = Console.ReadLine()!;
